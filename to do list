@@ -1,0 +1,84 @@
+# To-Do List Application
+tasks = []
+
+def show_tasks():
+    if not tasks:
+        print("\nNo tasks available.")
+    else:
+        print("\nTo-Do List:")
+        for index, task in enumerate(tasks, start=1):
+            status = "✔" if task['completed'] else "✖"
+            print(f"{index}. {task['title']} [{status}]")
+
+def add_task():
+    title = input("Enter task: ")
+    tasks.append({"title": title, "completed": False})
+    print(f"Task '{title}' added successfully.")
+
+def update_task():
+    show_tasks()
+    try:
+        index = int(input("\nEnter task number to update: ")) - 1
+        if 0 <= index < len(tasks):
+            new_title = input("Enter new title: ")
+            tasks[index]['title'] = new_title
+            print("Task updated successfully.")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Please enter a valid number.")
+
+def delete_task():
+    show_tasks()
+    try:
+        index = int(input("\nEnter task number to delete: ")) - 1
+        if 0 <= index < len(tasks):
+            removed_task = tasks.pop(index)
+            print(f"Task '{removed_task['title']}' deleted successfully.")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Please enter a valid number.")
+
+def mark_complete():
+    show_tasks()
+    try:
+        index = int(input("\nEnter task number to mark as complete: ")) - 1
+        if 0 <= index < len(tasks):
+            tasks[index]['completed'] = True
+            print(f"Task '{tasks[index]['title']}' marked as complete.")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Please enter a valid number.")
+
+def main():
+    while True:
+        print("\nOptions:")
+        print("1. Show Tasks")
+        print("2. Add Task")
+        print("3. Update Task")
+        print("4. Delete Task")
+        print("5. Mark Task as Complete")
+        print("6. Exit")
+        
+        choice = input("\nEnter your choice: ")
+        
+        if choice == '1':
+            show_tasks()
+        elif choice == '2':
+            add_task()
+        elif choice == '3':
+            update_task()
+        elif choice == '4':
+            delete_task()
+        elif choice == '5':
+            mark_complete()
+        elif choice == '6':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
